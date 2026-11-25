@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#10131c" />
+    <meta name="description" content="招待URLから参加して、みんなの写真を共有できるフォトアルバム。" />
+    <title>SnapRoom - 招待制フォトアルバム</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="SnapRoom">
+          <span class="brand-mark">S</span>
+          <span>SnapRoom</span>
+        </a>
+        <span class="topbar-note"><span class="live-dot"></span> INVITE-ONLY ALBUM</span>
+      </header>
+
+      <main class="shell">
+        <section id="access-screen" class="access-screen" hidden>
+          <div class="access-card">
+            <p class="eyebrow">INVITE ONLY</p>
+            <h1>招待URLから参加してください</h1>
+            <p>招待リンクを開くと、共有アルバムに参加できます。</p>
+            <p id="access-message" class="error-message" role="alert"></p>
+          </div>
+        </section>
+
+        <section id="album-screen" hidden>
+          <div class="album-heading">
+            <div>
+              <p class="eyebrow">SHARED ALBUM</p>
+              <h1>みんなの写真</h1>
+              <p class="album-subtitle">撮った写真を投稿して、みんなの思い出を共有しよう。</p>
+            </div>
+          </div>
+
+          <div class="album-layout">
+            <aside class="invite-card">
+              <div class="invite-card-top">
+                <span class="eyebrow">INVITE PEOPLE</span>
+                <span class="invite-badge">招待制</span>
+              </div>
+              <div class="qr-frame">
+                <canvas id="qr-canvas" width="220" height="220" aria-label="共有アルバムへの招待QRコード"></canvas>
+              </div>
+              <p class="share-instruction">QRコードを読み取るか、招待リンクを共有してください。</p>
+              <button id="copy-invite-button" class="button button-secondary button-wide" type="button">招待リンクをコピー</button>
+              <p id="invite-message" class="status-message" aria-live="polite"></p>
+              <p class="privacy-note">招待リンクを知っている人は参加できます。リンクの共有先にご注意ください。</p>
+            </aside>
+
+            <section class="content-column">
+              <div class="camera-card">
+                <div class="camera-card-heading">
+                  <div>
+                    <p class="eyebrow">ADD YOUR PHOTO</p>
+                    <h2>写真を投稿する</h2>
+                  </div>
+                  <span class="camera-symbol" aria-hidden="true">◎</span>
+                </div>
+
+                <div id="camera-start-area" class="camera-start-area">
+                  <p>カメラで撮影するか、端末にある写真を選んでください。</p>
+                  <div class="camera-actions">
+                    <button id="start-camera-button" class="button button-primary" type="button">カメラを起動</button>
+                    <button id="choose-file-button" class="button button-secondary" type="button">写真を選ぶ</button>
+                  </div>
+                  <input id="photo-file-input" type="file" accept="image/*" capture="environment" hidden />
+                </div>
+
+                <div id="camera-live-area" class="camera-live-area" hidden>
+                  <video id="camera-video" autoplay playsinline muted aria-label="カメラ映像"></video>
+                  <div class="camera-actions camera-live-actions">
+                    <button id="take-photo-button" class="button button-primary" type="button">● 撮影する</button>
+                    <button id="close-camera-button" class="button button-secondary" type="button">カメラを閉じる</button>
+                  </div>
+                </div>
+
+                <div id="photo-preview-area" class="photo-preview-area" hidden>
+                  <img id="photo-preview" alt="投稿する写真のプレビュー" />
+                  <label for="photo-caption">ひとこと（任意）</label>
+                  <input id="photo-caption" maxlength="120" placeholder="この写真についてひとこと…" />
+                  <div class="camera-actions">
+                    <button id="retake-button" class="button button-secondary" type="button">撮り直す</button>
+                    <button id="upload-photo-button" class="button button-primary" type="button">写真を投稿する</button>
+                  </div>
+                </div>
+                <p id="camera-message" class="status-message" aria-live="polite"></p>
+              </div>
+
+              <div class="gallery-heading">
+                <div>
+                  <p class="eyebrow">MEMORIES</p>
+                  <h2>みんなの写真 <span id="photo-count">0</span></h2>
+                </div>
+                <span id="realtime-status" class="live-label" aria-live="polite"><span class="live-dot"></span>接続中</span>
+              </div>
+              <div id="gallery" class="gallery" aria-live="polite">
+                <div class="empty-gallery">
+                  <span class="empty-icon" aria-hidden="true">▧</span>
+                  <strong>まだ写真がありません</strong>
+                  <p>最初の1枚を投稿してみましょう。</p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <footer class="footer">SnapRoom <span>·</span> みんなの思い出を、ひとつの場所に。</footer>
+      </main>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
