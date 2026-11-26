@@ -54,7 +54,7 @@ revoke all on public.album_invites from public, anon, authenticated;
 revoke all on public.album_members from public, anon, authenticated;
 revoke all on public.shared_photos from public, anon, authenticated;
 grant select on public.album_members to authenticated;
-grant select, insert on public.shared_photos to authenticated;
+grant select, insert, delete on public.shared_photos to authenticated;
 
 drop policy if exists "Members can view their own membership" on public.album_members;
 create policy "Members can view their own membership"
@@ -77,6 +77,17 @@ create policy "Members can add their own shared photos"
   with check (
     uploaded_by = (select auth.uid())
     and storage_path like (select auth.uid())::text || '/%'
+    and exists (
+      select 1 from public.album_members m
+      where m.user_id = (select auth.uid())
+    )
+  );
+
+drop policy if exists "Members can remove their own shared photos" on public.shared_photos;
+create policy "Members can remove their own shared photos"
+  on public.shared_photos for delete to authenticated
+  using (
+    uploaded_by = (select auth.uid())
     and exists (
       select 1 from public.album_members m
       where m.user_id = (select auth.uid())

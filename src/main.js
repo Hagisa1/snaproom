@@ -164,7 +164,7 @@ async function loadGallery() {
   const requestSequence = ++galleryLoadSequence;
   const { data, error } = await supabase
     .from('shared_photos')
-    .select('id, storage_path, caption, created_at')
+    .select('id, storage_path, uploaded_by, caption, created_at')
     .order('created_at', { ascending: false });
   if (error) throw error;
 
@@ -230,9 +230,58 @@ function renderGallery(photos) {
     date.textContent = new Intl.DateTimeFormat('ja-JP', {
       month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit',
     }).format(new Date(photo.created_at));
-    details.append(caption, date);
+
+    const meta = document.createElement('div');
+    meta.className = 'photo-meta';
+    meta.append(date);
+    if (photo.uploaded_by === currentUser.id) {
+      const deleteButton = document.createElement('button');
+      deleteButton.className = 'photo-delete-button';
+      deleteButton.type = 'button';
+      deleteButton.textContent = '削除';
+      deleteButton.setAttribute('aria-label', 'この写真を削除');
+      deleteButton.addEventListener('click', () => deletePhoto(photo, deleteButton));
+      meta.append(deleteButton);
+    }
+
+    details.append(caption, meta);
     card.append(imageButton, details);
     gallery.append(card);
+  }
+}
+
+async function deletePhoto(photo, button) {
+  if (!window.confirm('この写真を削除しますか？削除すると元に戻せません。')) return;
+
+  setBusy(button, true, '削除中…');
+  setCameraMessage('写真を削除しています…');
+  try {
+    const { data, error } = await supabase
+      .from('shared_photos')
+      .delete()
+      .eq('id', photo.id)
+      .eq('uploaded_by', currentUser.id)
+      .select('id')
+      .maybeSingle();
+    if (error) throw error;
+    if (!data) throw new Error('Photo was not found or is not owned by this user.');
+
+    const { error: storageError } = await supabase
+      .storage
+      .from(STORAGE_BUCKET)
+      .remove([photo.storage_path]);
+    await loadGallery();
+
+    if (storageError) {
+      setCameraMessage('写真は一覧から削除しましたが、保存画像の削除に失敗しました。管理者に連絡してください。', true);
+      return;
+    }
+
+    setCameraMessage('写真を削除しました。');
+  } catch (error) {
+    setCameraMessage(friendlyError(error), true);
+  } finally {
+    setBusy(button, false);
   }
 }
 
@@ -281,7 +330,7 @@ function subscribeToPhotos() {
     photoChannel = supabase
       .channel('shared-album-photos')
       .on('postgres_changes', {
-        event: 'INSERT', schema: 'public', table: 'shared_photos',
+        event: '*', schema: 'public', table: 'shared_photos',
       }, () => {
         loadGallery().catch((error) => setCameraMessage(friendlyError(error), true));
       })
