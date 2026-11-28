@@ -97,6 +97,10 @@ h1, h2, p { margin-top: 0; }
 .album-heading h1 { margin-bottom: 8px; color: #263f5d; font-family: 'Yu Mincho', 'Hiragino Mincho ProN', serif; font-size: clamp(28px, 4vw, 40px); font-weight: 600; letter-spacing: -.7px; }
 .album-heading .eyebrow { color: #fff; }
 .album-subtitle { margin: 0; color: #fff; font-size: 13px; line-height: 1.7; }
+.typing-accessible { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.typing-visual { white-space: pre-wrap; }
+.typing-character { animation: typewriter-character .14s ease-out both; }
+@keyframes typewriter-character { from { opacity: 0; } to { opacity: 1; } }
 .album-layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); align-items: start; gap: 24px; }
 
 .access-screen {

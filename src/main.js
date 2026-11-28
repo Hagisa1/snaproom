@@ -28,6 +28,7 @@ let pendingPhoto;
 let previewObjectUrl;
 let photoChannel;
 let galleryLoadSequence = 0;
+let introTextAnimated = false;
 
 const isConfigured =
   SUPABASE_URL.startsWith('https://') &&
@@ -41,9 +42,47 @@ function showAccess(message = '') {
   accessMessage.textContent = message;
 }
 
+function animateIntroText() {
+  if (introTextAnimated || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  introTextAnimated = true;
+
+  const paragraphs = [
+    $('.album-subtitle'),
+    $('.share-instruction'),
+    $('.privacy-note'),
+    $('#camera-start-area > p'),
+  ];
+  let nextStart = 250;
+
+  for (const paragraph of paragraphs) {
+    if (!paragraph) continue;
+    const text = paragraph.textContent;
+    const characters = Array.from(text);
+    const accessibleCopy = document.createElement('span');
+    accessibleCopy.className = 'typing-accessible';
+    accessibleCopy.textContent = text;
+
+    const visualCopy = document.createElement('span');
+    visualCopy.className = 'typing-visual';
+    visualCopy.setAttribute('aria-hidden', 'true');
+
+    characters.forEach((character, index) => {
+      const letter = document.createElement('span');
+      letter.className = 'typing-character';
+      letter.textContent = character;
+      letter.style.animationDelay = `${nextStart + index * 36}ms`;
+      visualCopy.append(letter);
+    });
+
+    paragraph.replaceChildren(accessibleCopy, visualCopy);
+    nextStart += characters.length * 36 + 260;
+  }
+}
+
 function showAlbum() {
   accessScreen.hidden = true;
   albumScreen.hidden = false;
+  animateIntroText();
 }
 
 function setCameraMessage(message, isError = false) {
