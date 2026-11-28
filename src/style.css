@@ -1,15 +1,15 @@
 :root {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Noto Sans JP', sans-serif;
   color: #26364b;
-  background: #f6f8fc;
+  background: #acb2c6;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  --bg: #f6f8fc;
+  --bg: #acb2c6;
   --panel: #ffffff;
   --panel-soft: #edf3fa;
   --line: rgba(48, 76, 111, .13);
-  --muted: #66788c;
-  --accent: #668ab3;
+  --muted: #45566d;
+  --accent: #304f73;
 }
 
 * { box-sizing: border-box; }
@@ -18,7 +18,7 @@ body {
   min-width: 320px;
   min-height: 100svh;
   margin: 0;
-  background: radial-gradient(ellipse at 82% 0%, rgba(139, 174, 213, .22), transparent 34rem), var(--bg);
+  background: var(--bg);
   overscroll-behavior-y: contain;
 }
 button, input { font: inherit; }
@@ -61,7 +61,7 @@ button:disabled { opacity: .55; cursor: not-allowed; }
   font-weight: 800;
 }
 .topbar-note, .live-label {
-  color: #66788c;
+  color: #40536c;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -206,7 +206,7 @@ label { display: block; margin-bottom: 8px; color: #405672; font-size: 13px; fon
 .image-viewer { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(27, 39, 55, .94); }
 .image-viewer img { max-width: 100%; max-height: 88svh; object-fit: contain; }
 .viewer-close { position: absolute; top: max(14px, env(safe-area-inset-top)); right: max(14px, env(safe-area-inset-right)); min-height: 46px; padding: 10px 14px; border: 1px solid rgba(255, 255, 255, .5); border-radius: 9px; color: #fff; background: rgba(255, 255, 255, .16); }
-.footer { margin-top: auto; padding: 26px 0; color: #65758a; font-size: 10px; text-align: center; }
+.footer { margin-top: auto; padding: 26px 0; color: #43546a; font-size: 10px; text-align: center; }
 .footer span { padding: 0 5px; color: var(--accent); }
 
 @keyframes appear { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
