@@ -9,8 +9,7 @@
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.0.0",
-    "qrcode": "^1.5.4"
+    "@supabase/supabase-js": "^2.0.0"
   },
   "devDependencies": {
     "vite": "^7.0.0"

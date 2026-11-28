@@ -127,8 +127,6 @@ h1, h2, p { margin-top: 0; }
   font-size: 10px;
   font-weight: 800;
 }
-.qr-frame { display: grid; width: min(100%, 220px); aspect-ratio: 1; place-items: center; margin-inline: auto; padding: 10px; border-radius: 14px; background: #fff; }
-.qr-frame canvas { display: block; width: 100%; height: 100%; max-width: 220px; object-fit: contain; }
 .share-instruction { margin: 14px 0; color: #52657d; font-size: 12px; line-height: 1.7; text-align: left; }
 .privacy-note { margin: 13px 0 0; color: #65758a; font-size: 10px; line-height: 1.7; text-align: left; }
 
@@ -214,12 +212,9 @@ label { display: block; margin-bottom: 8px; color: #405672; font-size: 13px; fon
 @keyframes appear { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 900px) {
   .album-layout { grid-template-columns: 1fr; gap: 18px; }
-  .invite-card { position: static; display: grid; grid-template-columns: minmax(0, 1fr) 150px; column-gap: 16px; align-items: center; text-align: left; }
-  .invite-card-top { grid-column: 1; grid-row: 1; justify-content: flex-start; }
-  .qr-frame { grid-column: 2; grid-row: 1 / span 3; width: 150px; height: 150px; align-self: center; justify-self: center; }
-  .share-instruction { grid-column: 1; grid-row: 2; margin: 6px 0 10px; }
-  .invite-card .button { grid-column: 1; grid-row: 3; }
-  .invite-card .status-message, .privacy-note { grid-column: 1 / -1; }
+  .invite-card { position: static; text-align: left; }
+  .invite-card-top { justify-content: flex-start; }
+  .share-instruction { margin: 8px 0 12px; }
 }
 @media (max-width: 600px) {
   .topbar { height: 58px; padding-inline: max(14px, env(safe-area-inset-left)) max(14px, env(safe-area-inset-right)); }
@@ -230,10 +225,9 @@ label { display: block; margin-bottom: 8px; color: #405672; font-size: 13px; fon
   .album-heading { padding: 26px 0 17px; }
   .album-heading h1 { font-size: 27px; }
   .album-subtitle { font-size: 12px; }
-  .invite-card { grid-template-columns: minmax(0, 1fr) 100px; column-gap: 12px; padding: 13px; border-radius: 17px; }
+  .invite-card { padding: 13px; border-radius: 17px; }
   .invite-card-top { flex-direction: column; align-items: flex-start; gap: 6px; margin: 0; }
   .invite-card-top .eyebrow { font-size: 8px; }
-  .qr-frame { width: 100px; height: 100px; padding: 5px; border-radius: 10px; }
   .share-instruction { font-size: 11px; line-height: 1.55; }
   .invite-card .button { min-height: 48px; padding-inline: 8px; font-size: 12px; }
   .privacy-note { margin-top: 9px; font-size: 10px; }
@@ -260,8 +254,6 @@ label { display: block; margin-bottom: 8px; color: #405672; font-size: 13px; fon
 }
 @media (max-width: 380px) {
   .shell { width: calc(100% - 20px); }
-  .invite-card { grid-template-columns: minmax(0, 1fr) 88px; }
-  .qr-frame { width: 88px; height: 88px; }
   .topbar-note { font-size: 7px; }
   .live-label { font-size: 7px; }
 }

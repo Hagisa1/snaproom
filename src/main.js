@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js';
-import QRCode from 'qrcode';
 import { SUPABASE_URL, SUPABASE_PUBLIC_KEY, STORAGE_BUCKET } from './config.js';
 import './style.css';
 
@@ -76,7 +75,7 @@ function saveInviteToken(token) {
   try {
     sessionStorage.setItem(INVITE_STORAGE_KEY, token);
   } catch {
-    // The current page can still show its QR code if session storage is unavailable.
+    // The current page can still copy the invite link if session storage is unavailable.
   }
 }
 
@@ -146,18 +145,12 @@ async function updateInviteCard() {
   const copyButton = $('#copy-invite-button');
   if (!inviteToken) {
     copyButton.disabled = true;
-    inviteMessage.textContent = '招待URLを開き直すと、ここにQRコードが表示されます。';
+    inviteMessage.textContent = '招待URLを開き直すと、ここでリンクをコピーできます。';
     return;
   }
 
   copyButton.disabled = false;
   inviteMessage.textContent = '';
-  await QRCode.toCanvas($('#qr-canvas'), makeInviteUrl(inviteToken), {
-    width: 220,
-    margin: 2,
-    color: { dark: '#10131c', light: '#ffffff' },
-    errorCorrectionLevel: 'Q',
-  });
 }
 
 async function loadGallery() {
