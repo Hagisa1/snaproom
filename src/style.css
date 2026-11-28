@@ -95,7 +95,8 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 h1, h2, p { margin-top: 0; }
 .album-heading { padding: 40px 0 24px; }
 .album-heading h1 { margin-bottom: 8px; color: #263f5d; font-family: 'Yu Mincho', 'Hiragino Mincho ProN', serif; font-size: clamp(28px, 4vw, 40px); font-weight: 600; letter-spacing: -.7px; }
-.album-subtitle { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.album-heading .eyebrow { color: #9baff2; }
+.album-subtitle { margin: 0; color: #9baff2; font-size: 13px; line-height: 1.7; }
 .album-layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); align-items: start; gap: 24px; }
 
 .access-screen {
@@ -184,9 +185,10 @@ label { display: block; margin-bottom: 8px; color: #405672; font-size: 13px; fon
 .error-message, .is-error { color: #b9444b !important; }
 
 .gallery-heading { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin: 34px 0 15px; }
-.gallery-heading .eyebrow { margin-bottom: 6px; }
-.gallery-heading h2 { font-size: 20px; }
-.gallery-heading h2 span { margin-left: 5px; color: var(--muted); font-size: 13px; font-weight: 500; }
+.gallery-heading .eyebrow { margin-bottom: 6px; color: #9baff2; }
+.gallery-heading h2 { color: #fff; font-size: 20px; }
+.gallery-heading h2 span { margin-left: 5px; color: #fff; font-size: 13px; font-weight: 500; }
+.gallery-heading .live-label { color: #fff; }
 .live-label { white-space: nowrap; font-size: 9px; letter-spacing: .3px; }
 .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .photo-card { overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); box-shadow: 0 8px 24px rgba(50, 76, 108, .06); animation: appear .22s ease-out; }
