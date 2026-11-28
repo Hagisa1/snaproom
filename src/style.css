@@ -127,8 +127,8 @@ h1, h2, p { margin-top: 0; }
   font-size: 10px;
   font-weight: 800;
 }
-.qr-frame { display: grid; place-items: center; padding: 10px; border-radius: 14px; background: #fff; }
-.qr-frame canvas { display: block; width: 100%; max-width: 220px; height: auto; }
+.qr-frame { display: grid; width: 100%; aspect-ratio: 1; align-self: center; place-items: center; padding: 10px; border-radius: 14px; background: #fff; }
+.qr-frame canvas { display: block; width: 100%; max-width: 220px; aspect-ratio: 1; height: auto; }
 .share-instruction { margin: 14px 0; color: #52657d; font-size: 12px; line-height: 1.7; text-align: left; }
 .privacy-note { margin: 13px 0 0; color: #65758a; font-size: 10px; line-height: 1.7; text-align: left; }
 
